@@ -186,22 +186,24 @@ async function isAudioInstalled() {
 
 async function installAudioDriver() {
   copyRuntime();
-  const inf = path.join(INSTALL_DIR, 'audio-driver', 'VirtualAudioDriver.inf');
-  if (!fs.existsSync(inf)) {
-    return { ok: false, error: 'VirtualAudioDriver.inf missing' };
-  }
-  const r = await run('pnputil', ['/add-driver', inf, '/install']);
-  if (r.ok || /already|published/i.test(r.stdout + r.stderr)) {
-    return { ok: true };
+  if (await isAudioInstalled()) return { ok: true };
+  const script = path.join(ROOT, 'scripts', 'install-virtual-audio.ps1');
+  if (!fs.existsSync(script)) {
+    return { ok: false, error: 'install-virtual-audio.ps1 missing' };
   }
   const elevated = await run('powershell.exe', [
     '-NoProfile',
+    '-ExecutionPolicy',
+    'Bypass',
     '-Command',
-    `Start-Process -FilePath pnputil -ArgumentList '/add-driver','${inf.replace(/'/g, "''")}','/install' -Verb RunAs -Wait`,
+    `Start-Process -FilePath powershell.exe -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File','${script.replace(/'/g, "''")}' -Verb RunAs -Wait`,
   ]);
+  if (await isAudioInstalled()) return { ok: true };
   return {
-    ok: elevated.ok,
-    error: elevated.ok ? undefined : 'pnputil failed (need admin once to install mic driver)',
+    ok: false,
+    error: elevated.ok
+      ? 'Virtual mic driver did not appear after install'
+      : 'Need admin once to install Virtual Mic Driver by MTT',
   };
 }
 

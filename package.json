@@ -11,7 +11,8 @@
     "icon": "node scripts/make-icon.js",
     "build:vdevices": "cargo build --release --manifest-path dm-vdevices/Cargo.toml",
     "build:vcam": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-vcam.ps1",
-    "install:vcam": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-virtual-devices.ps1"
+    "install:vcam": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-virtual-devices.ps1",
+    "install:audio": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-virtual-audio.ps1"
   },
   "author": "",
   "license": "MIT",
