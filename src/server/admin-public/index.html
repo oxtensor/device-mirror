@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Device Mirror Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div id="login-view" class="panel login">
+    <h1>Device Mirror</h1>
+    <p class="muted">Admin dashboard</p>
+    <form id="login-form">
+      <label>Username <input name="username" value="admin" required /></label>
+      <label>Password <input name="password" type="password" value="admin123" required /></label>
+      <button type="submit">Sign in</button>
+      <p id="login-error" class="error" hidden></p>
+    </form>
+  </div>
+
+  <div id="app-view" hidden>
+    <header>
+      <div>
+        <strong>Device Mirror</strong>
+        <span class="muted">Admin</span>
+      </div>
+      <button id="logout-btn" class="ghost">Sign out</button>
+    </header>
+
+    <nav class="tabs">
+      <button data-tab="devices" class="active">Devices</button>
+      <button data-tab="users">Users</button>
+      <button data-tab="privileges">Control privileges</button>
+    </nav>
+
+    <section id="tab-devices" class="tab">
+      <h2>Registered devices</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>IP</th>
+            <th>Status</th>
+            <th>Last seen</th>
+          </tr>
+        </thead>
+        <tbody id="devices-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-users" class="tab" hidden>
+      <h2>Users</h2>
+      <form id="user-form" class="inline-form">
+        <input name="username" placeholder="Username" required />
+        <input name="password" type="password" placeholder="Password" required />
+        <select name="role">
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+        <button type="submit">Add user</button>
+      </form>
+      <table>
+        <thead>
+          <tr><th>Username</th><th>Role</th><th>Created</th><th></th></tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-privileges" class="tab" hidden>
+      <h2>Control privileges</h2>
+      <p class="muted">
+        Assign targets a user may connect to without the remote-control password.
+        Optionally auto-accept so the target dialog is skipped.
+      </p>
+      <form id="priv-form" class="inline-form">
+        <select name="userId" id="priv-user" required></select>
+        <select name="targetDeviceId" id="priv-device" required></select>
+        <label class="check"><input type="checkbox" name="noPassword" checked /> No password</label>
+        <label class="check"><input type="checkbox" name="autoAccept" /> Auto-accept</label>
+        <button type="submit">Assign</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Target</th>
+            <th>ID</th>
+            <th>No password</th>
+            <th>Auto-accept</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="priv-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

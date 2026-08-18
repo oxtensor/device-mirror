@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' ws: wss: http: https:; media-src 'self' blob: mediastream:" />
+  <title>Remote session</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="viewer-body">
+  <div class="viewer-toolbar">
+    <strong id="title">Remote</strong>
+    <span id="state" class="meta">connecting…</span>
+    <select id="monitor-select" title="Remote monitor"></select>
+    <button id="btn-clipboard" class="ghost">Sync clipboard</button>
+    <button id="btn-feed" class="ghost">Feed my mic/camera</button>
+    <button id="btn-feed-stop" class="ghost" disabled>Stop feed</button>
+    <button id="btn-disconnect">Disconnect</button>
+  </div>
+  <div class="viewer-stage">
+    <video id="remote-video" autoplay playsinline></video>
+    <audio id="remote-audio" class="viewer-audio" autoplay></audio>
+  </div>
+  <script src="webrtc-session.js"></script>
+  <script src="viewer.js"></script>
+</body>
+</html>

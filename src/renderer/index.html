@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' ws: wss: http: https:; media-src 'self' blob: mediastream:" />
+  <title>Device Mirror</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <div class="brand-name">Device Mirror</div>
+          <div class="brand-sub" id="conn-pill">Connecting…</div>
+        </div>
+      </div>
+
+      <div class="id-card">
+        <div class="label">Your ID</div>
+        <div class="id-value" id="device-code">————————</div>
+        <div class="label">Name</div>
+        <div id="display-name">—</div>
+      </div>
+
+      <nav class="side-nav">
+        <button class="nav-btn active" data-panel="connect">Remote control</button>
+        <button class="nav-btn" data-panel="session">Host session</button>
+        <button class="nav-btn" data-panel="settings">Settings</button>
+      </nav>
+
+      <a class="admin-link" id="admin-link" href="#" target="_blank">Admin dashboard</a>
+    </aside>
+
+    <main>
+      <section id="panel-connect" class="panel">
+        <h1>Connect to a computer</h1>
+        <p class="lede">Enter a Device Mirror ID or IP address, like AnyDesk / Splashtop.</p>
+
+        <form id="connect-form" class="connect-form">
+          <input id="target-input" placeholder="ID or IP address" autocomplete="off" required />
+          <input id="password-input" type="password" placeholder="Remote password" />
+          <button type="submit">Connect</button>
+        </form>
+        <p id="connect-status" class="status-line"></p>
+
+        <h2>Online peers</h2>
+        <ul id="peer-list" class="peer-list"></ul>
+      </section>
+
+      <section id="panel-session" class="panel" hidden>
+        <h1>Host session</h1>
+        <p class="lede">When someone connects, you accept or deny. This machine shares screen, audio, input, and can expose the controller’s mic/camera as embedded local devices (Device Mirror Camera / virtual mic).</p>
+        <div id="host-state" class="host-state idle">Waiting for incoming connections…</div>
+        <div class="row">
+          <button id="stop-host-session" class="ghost" disabled>End session</button>
+        </div>
+        <div id="monitor-picker" class="monitor-picker"></div>
+      </section>
+
+      <section id="panel-settings" class="panel" hidden>
+        <h1>Settings</h1>
+        <form id="settings-form" class="settings-form">
+          <label>Display name <input name="displayName" /></label>
+          <label>Account username (for admin privileges) <input name="username" placeholder="optional" /></label>
+          <label>Remote-control password <input name="remotePassword" type="password" /></label>
+          <label>Signal server URL <input name="signalUrl" /></label>
+          <label class="check"><input name="launchAtLogin" type="checkbox" /> Launch at Windows login</label>
+          <button type="submit">Save</button>
+        </form>
+        <p class="hint">Default remote password is <code>qweqwe</code>. Keep the app in the tray; use <code>npm run watchdog</code> for auto-restart if the process exits.</p>
+      </section>
+    </main>
+  </div>
+  <script src="webrtc-session.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

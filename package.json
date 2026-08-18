@@ -1,0 +1,30 @@
+{
+  "name": "device-mirror",
+  "version": "1.0.0",
+  "description": "Remote control desktop app with tray, multi-monitor, audio, and mic/camera feed",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node src/server/index.js",
+    "dev": "concurrently -k \"npm run server\" \"electron .\"",
+    "watchdog": "node src/main/watchdog.js",
+    "icon": "node scripts/make-icon.js",
+    "build:vdevices": "cargo build --release --manifest-path dm-vdevices/Cargo.toml",
+    "build:vcam": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-vcam.ps1",
+    "install:vcam": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-virtual-devices.ps1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "nanoid": "^3.3.8",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^34.2.0"
+  }
+}

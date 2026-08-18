@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Virtual feed</title>
+  <style>
+    body { margin: 0; background: #0b0f14; color: #c5d0dc; font-family: "Segoe UI", sans-serif; }
+    .bar { padding: 0.75rem 0.9rem; background: #121820; font-size: 0.82rem; line-height: 1.4; }
+    .bar strong { color: #3d9cf0; }
+    ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <strong>Embedded virtual devices active</strong>
+    <ul>
+      <li>Camera: <code>Device Mirror Camera</code></li>
+      <li>Microphone: <code>Virtual Mic Driver by MTT</code></li>
+    </ul>
+    Choose those devices in Zoom / Teams / browser — no OBS required.
+  </div>
+  <script>
+    // Preview of the live controller feed is shown in the main Host session panel.
+    window.deviceMirror.onVirtualFeedData(() => {});
+  </script>
+</body>
+</html>

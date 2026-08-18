@@ -1,0 +1,17 @@
+node_modules/
+dist/
+data/
+*.log
+.DS_Store
+Thumbs.db
+.env
+*.db
+out/
+release/
+dm-vdevices/target/
+vendor/vcam/cpp/VCam/x64/
+vendor/vcam/cpp/VCam/packages/
+vendor/vcam/cpp/VCam/**/Generated Files/
+vendor/vad-release.json
+vendor/VirtualAudioDriver.zip
+vendor/VCamNetSample/

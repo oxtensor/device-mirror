@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Incoming remote control</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="accept-body">
+  <div class="accept-card">
+    <h1 style="margin-top:0;font-size:1.25rem;">Remote control request</h1>
+    <p id="accept-msg" class="lede">Someone wants to control this computer.</p>
+    <div class="accept-actions">
+      <button id="accept-btn">Accept</button>
+      <button id="deny-btn" class="deny">Deny</button>
+    </div>
+  </div>
+  <script>
+    const msg = document.getElementById('accept-msg');
+    window.deviceMirror.onAcceptPayload((payload) => {
+      const who = payload.fromDisplayName || payload.fromDeviceCode || 'Unknown';
+      const user = payload.fromUsername ? ` (${payload.fromUsername})` : '';
+      msg.textContent = `${who}${user} wants to control this computer. Accept or deny?`;
+    });
+    document.getElementById('accept-btn').onclick = () => window.deviceMirror.acceptDecision('accept');
+    document.getElementById('deny-btn').onclick = () => window.deviceMirror.acceptDecision('deny');
+  </script>
+</body>
+</html>
