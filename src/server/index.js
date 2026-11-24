@@ -4,6 +4,7 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 const { openDb, upsertDevice, setDeviceOffline, getPrivilegeForConnection, findDeviceByCode } = require('./db');
 const { createAdminRouter } = require('./admin-routes');
+const { removePeerIfCurrent } = require('./peer-registry');
 const {
   DEFAULT_SIGNAL_PORT,
   DEFAULT_ADMIN_PORT,
@@ -163,9 +164,8 @@ function startServer(options = {}) {
     });
 
     socket.on('disconnect', () => {
-      if (deviceCode) {
+      if (deviceCode && removePeerIfCurrent(peers, deviceCode, socket.id)) {
         setDeviceOffline(db, deviceCode);
-        peers.delete(deviceCode);
         broadcastPeerList();
       }
     });
